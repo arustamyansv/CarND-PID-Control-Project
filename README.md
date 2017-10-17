@@ -3,11 +3,37 @@ Self-Driving Car Engineer Nanodegree Program
 
 ---
 
+## Description
+
+To run the script with tuned parameters it's enough to run:
+
+```shell
+./pid
+```
+
+However as parameters were tuned manually I added a possibility to pass command-line arguments to the script. 
+
+```shell
+./pid s_Kp s_Ki s_Kd t_Kp t_Ki t_Kd target_speed
+```
+
+Where `s_Kp`, `s_Ki`, `s_Kd` are parameters for steer angle PID controller. `t_Kp`, `t_Ki`, `t_Kd` are parameters to throttle PID controller and `target_speed` defines the car speed.
+ 
+Parameters tuning for steer angle PID controller (first are parameters I tried):
+
+* `0.2 0.0 0.0` I decide to tune parameters step by step. First probe gave me huge ocscilliation even on straight road.
+* `0.05 0.0 0.0` Make Kp lower gave me a bit better result cause steer angle was not so big now.
+* `0.05 0.01 0.0` Next point is to utilise Ki coefficient to approach trajectory smoosly. And car went out of the road instantly...
+* `0.05 0.0001 0.0` Reducing Ki to 0.001 and then to 0.0001 normalized the situation.
+* `0.08 0.0001 0.0` So far I had issue on big turns so I increase Kp up to 0.08.
+* `0.08 0.0001 6.0` Now car was able to turn on steep curves but it was not able to go straight so I came to last parameter. I tried to tune it several times starting from 0.5 and coming to 6.0.
+* `0.08 0.0003 6.0` As I increased first parameter it was needed to increase a second as well to make car come to line smoothly.
+
 ## Dependencies
 
 * cmake >= 3.5
  * All OSes: [click here for installation instructions](https://cmake.org/install/)
-* make >= 4.1(mac, linux), 3.81(Windows)
+* make >= 4.1
   * Linux: make is installed by default on most Linux distros
   * Mac: [install Xcode command line tools to get make](https://developer.apple.com/xcode/features/)
   * Windows: [Click here for installation instructions](http://gnuwin32.sourceforge.net/packages/make.htm)
@@ -34,8 +60,6 @@ There's an experimental patch for windows in this [PR](https://github.com/udacit
 2. Make a build directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
 4. Run it: `./pid`. 
-
-Tips for setting up your environment can be found [here](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/0949fca6-b379-42af-a919-ee50aa304e6a/lessons/f758c44c-5e40-4e01-93b5-1a82aa4e044f/concepts/23d376c7-0195-4276-bdf0-e02f1f3c665d)
 
 ## Editor Settings
 

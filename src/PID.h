@@ -1,3 +1,5 @@
+#include <array>
+
 #ifndef PID_H
 #define PID_H
 
